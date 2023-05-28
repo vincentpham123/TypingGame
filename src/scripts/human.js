@@ -1,45 +1,61 @@
 import MovingObject from './movingObject.js';
 import * as Util from './util.js';
+import Resources from './resources.js';
 
 
 class Human extends MovingObject {
     static IMAGE = './images/walkcyclevarious.png';
-    static humanImage = new Image();
-
-
-    constructor (pos,ctx,person){
-        const vel = Util.randomVec(1);
-        super(pos,vel);
+    static start =[680,650,600];
+    static startSpeed=.5;
+    static frame = 9;
+    static spriteHeight = 60;
+    static spriteWidth = 65;
+    // need to set up 3 random positions for a human, 
+    constructor (ctx){
+        const speed = Human.startSpeed
+        const y = Human.start[Math.floor(Math.random()*Human.start.length)];
+        const x = Math.floor(Math.random()*(1800-1500+1))+1500;
     
-        this.image = Human.humanImage;
-        this.person = person;
-        this.spriteWidth = 65;
-        this.spriteHeight = 61*this.person;
-        this.maxFrame = 11;
+        super([x,y],speed);
+        this.sprite = new Image();
+        this.maxFrame=11;
         this.minFrame=9;
-        this.gameFrame=0;
-        this.frame = 8;
+        this.centerX = (1500-Human.spriteWidth)/2;
+        this.centerY = (500-Human.spriteHeight)/2;
+        this.person = Math.floor(Math.random()*9);
+        this.spriteHeight = Human.spriteHeight*this.person;
+        this.frame = Human.frame;
+        this.imageLoaded = false;
+        // this.sprite.src = Human.IMAGE;
+        this.sprite.onload= ()=>{
+            console.log('callback')
+            this.imageLoaded=true;
+            // this.drawFrame(ctx);
+        };
+        this.sprite.src = Human.IMAGE;
     }
 
-    draw(ctx){
-        console.log(this.image);
+
+   drawFrame(ctx) {
         let [x,y] = this.pos;
-        let person = this.person
-        const humanImage = this.image;
-        humanImage.src = Human.IMAGE;
-        const width = this.spriteWidth
-        const height = this.spriteHeight
+        let personNum = this.person;
         let frame = this.frame;
-        
-        humanImage.onload = function(){
-            ctx.clearRect(0,0,1000,500);
-            ctx.drawImage(humanImage,65*frame,61*person,65,61,x,y,65,61);
+        console.log(this.sprite);
+        if (this.imageLoaded){
+
+            console.log(this.sprite);
+            ctx.drawImage(this.sprite,Human.spriteWidth*frame,
+                Human.spriteHeight*personNum,
+                Human.spriteWidth,
+                Human.spriteHeight,
+                x,
+                y,
+                70,
+                70);
         }
-        
-        // ctx.drawImage(this.image,10*this.spriteWidth,1*this.spriteHeight,this.spriteWidth,this.spriteHeight,x,y,this.width,this.height);
-
+        // ctx.drawImage(this.sprite,65,61,65,61,this.pos[0],this.pos[1],65,61);
     }
-
+    
     update(){
         if (this.frame<this.maxFrame) this.frame++;
         else this.frame = this.minFrame;
@@ -51,23 +67,11 @@ class Human extends MovingObject {
     }
 
 
-    animate(ctx,frameRate=60){
-        // ctx.clearRect(0,0,1000 ,500);
-        let frameCounter = 0;
-        const frameDelay = Math.floor(60/frameRate);
+   
 
-        const animateLoop = ()=>{
-            if (frameCounter % frameDelay===0){
-                // ctx.clearRect(0,0,1000 ,500);
-                this.draw(ctx);
-                this.update();
-                this.move();
-            }
-            frameCounter++;
-            requestAnimationFrame(animateLoop.bind(this));
-        };
-        requestAnimationFrame(animateLoop.bind(this));
-
+    checkCollision(rect1,rect2){
+        //check if a projectile has hit a human
+        
 
     }
 }

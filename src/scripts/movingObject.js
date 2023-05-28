@@ -1,16 +1,18 @@
 
-
+const NORMAL_FAME_TIME_DELTA = 1000/60;
 class MovingObject{
-    constructor(pos,vel){
+   
+    constructor(pos,speed){
         this.pos = pos;
-        this.vel = vel;
+        this.speed = speed;
         
 
 
     }
 
     move() {
-        this.pos = [this.pos[0]+this.vel[0],this.pos[1]];
+        
+        this.pos = [this.pos[0]-this.speed,this.pos[1]];
     }
     
 
