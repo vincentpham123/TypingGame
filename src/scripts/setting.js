@@ -6,7 +6,6 @@ class Setting {
         this.backgroundImage.onload =()=>{
             
             this.imageLoaded = true;
-            console.log(this.imageLoaded);
             // this.drawFrame(ctx);
         }
         // this.houseImage =  new Image();

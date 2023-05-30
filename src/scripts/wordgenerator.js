@@ -13,7 +13,7 @@ export async function getRandomWord(){
         if (response.ok) {
           const result = await response.json();
           const word = result.word;
-          console.log(word);
+          return word;
         } else {
           throw response
         }

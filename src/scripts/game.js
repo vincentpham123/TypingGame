@@ -5,13 +5,18 @@ class Game {
     static num_humans=5;
     static DIM_X = 1500;
     static DIM_Y = 900;
-    constructor(){
+    constructor(currentTyping){
+        this.typing = currentTyping;
         this.humans = [];
         this.setting = [];
         this.addHumans();
         this.addSetting();
-    }
+        this.trash=[];
+        this.active = false;
+        this.time = 0;
 
+    }
+    
     add(object){
         if (object instanceof Human){
             this.humans.push(object);
@@ -45,7 +50,13 @@ class Game {
             object.drawFrame(ctx);
         });
     }
-    update(ctx){
+    checkLetter(letter){
+        this.humans.forEach(human=>{
+            human.wordCheck(letter);
+        })
+
+    }
+    update(){
         this.humans.forEach(human=>{
             human.update();
         })

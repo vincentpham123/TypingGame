@@ -14,17 +14,26 @@ class Projectile extends MovingObject {
         this.trash.onload=()=>{
             this.imageLoaded = true;
             this.drawFrame(ctx);
-            console.log('callback')
         };
         this.trash.src = Projectile.url;
         this.number = Math.floor(Math.random()*3)+1;
-        this.centerX = (1500-Projectile.spriteWidth)/2;
-        this.centerY = (500-Projectile.spriteHeight)/2;
+        this.centerX = this.pos[0]+20/2;
+        this.centerY = this.pos[1]+20/2;
+        this.rotation=0;
+        this.rotationSpeed=25;
       
+    }
+    update(){
+        this.rotation+=this.rotationSpped;
     }
     drawFrame(ctx){
         if(this.imageLoaded){
+            ctx.save();
+            ctx.translate(this.centerX,this.centerY);
+            ctx.rotate(5.9);
             ctx.drawImage(this.trash,3,4,20,20,100,100,20,20);
+            // ctx.rotate(-1);
+            ctx.restore();
             // ctx.drawImage(this.trash,0,0);
         }
     }
