@@ -5,7 +5,7 @@ class GameView {
         this.ctx = ctx;
         this.game = game;
         this.lastFrameTime=0;
-        this.frameRate=4;
+        this.frameRate=10;
         this.frameDelay = 1000/this.frameRate
         this.index =0;
         document.addEventListener('keydown',event => {
@@ -31,7 +31,8 @@ class GameView {
      const elapsed = currentTime - this.lastFrameTime;
         if (elapsed > this.frameDelay){
             this.lastFrameTime=currentTime
-            this.game.moveHumans();
+            this.game.moveObjects();
+            this.game.checkHits();
             this.game.update();
             this.game.draw(this.ctx);
             // this.game.update();

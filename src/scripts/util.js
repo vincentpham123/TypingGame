@@ -4,7 +4,7 @@ export function randomVec(length) {
 }
 
 export function dist(pos1,pos2){
-  return Math.sqrt()
+  return Math.sqrt(Math.pow(pos1[0]-pos2[0],2)+Math.pow(pos1[1]-pos2[0],2));
 }
 // Scale the length of a vector by the given amount.
 export function scale(vec, m) {

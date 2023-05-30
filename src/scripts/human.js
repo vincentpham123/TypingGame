@@ -21,17 +21,19 @@ class Human extends MovingObject {
         this.word=initialWord;
     }
 
-    constructor (ctx){
+    constructor (game){
         const speed = Human.startSpeed
         const y = Human.start[Math.floor(Math.random()*Human.start.length)];
         const x = Math.floor(Math.random()*(1800-1500+1))+1500;
     
-        super([x,y],speed);
+        super([x,y],speed,game);
         this.status = 'alive';
         this.setRandomWord();
         this.sprite = new Image();
         this.maxFrame=11;
         this.minFrame=9;
+        this.width=65;
+        this.height=60;
         this.centerX = this.pos[0]+Human.spriteWidth/2;
         this.centerY = this.pos[1]+Human.spriteHeight/2;
         this.person = Math.floor(Math.random()*7)+1;
@@ -90,11 +92,11 @@ class Human extends MovingObject {
         if (x>0) this.pos = [this.pos[0]-1,this.pos[1]];
     }
 
-    // status(){
-    //     if (!this.lettersToType.length){
-    //         this.status = 'dead';
-    //     }
-    // }
+    status(){
+        if (!this.lettersToType.length){
+            this.status = 'dead';
+        }
+    }
     wordCheck(letter){
 
         // if (word===this.word.word){
@@ -104,6 +106,7 @@ class Human extends MovingObject {
                 this.word = this.word.slice(1);
               
             }
+            this.status();
         }
         
     
