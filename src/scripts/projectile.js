@@ -21,11 +21,13 @@ class Projectile extends MovingObject {
         };
         this.trash.src = Projectile.url;
         this.number = Math.floor(Math.random()*3)+1;
-        this.centerX = this.pos[0]+20/2;
-        this.centerY = this.pos[1]+20/2;
-        this.rotation=0;
-        this.rotationSpeed=25;
       
+    }
+    getCenterX(){
+        return this.pos[0]+20/2;
+    }
+    getCenterY(){
+        return this.pos[1]+20/2;
     }
     update(){
         this.rotation+=this.rotationSpped;
@@ -43,7 +45,7 @@ class Projectile extends MovingObject {
         }
     }
     move(){
-        this.pos = [this.pos[0]+20,this.pos[1]];
+        this.pos = [this.pos[0]+5,this.pos[1]];
     }
     
 

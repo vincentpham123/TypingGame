@@ -45,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // let game = new Game();
     // let gameview = new GameView(game,ctx).start();
     const game = new Game();
+    console.log(game);
     new GameView(game,ctx).start();
   
 

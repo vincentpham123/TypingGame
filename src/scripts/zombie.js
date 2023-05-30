@@ -22,9 +22,10 @@ class Zombie{
         }
         this.sprite.src = Zombie.url;
         this.idleAnimation=[1,2,3,4,5,6];
-        this.projectile=null;
+        this.projectile=false;
 
     }
+
     throwProjectile(){
         let trash = new Projectile(this.y);
         this.game.add(trash);
@@ -32,6 +33,7 @@ class Zombie{
     drawThrowingFrame(ctx){
         let [frameX,frameY] = [Zombie.throwingDimensions[this.standingIndex][0],Zombie.throwingDimensions[this.standingIndex][1]];
         let [dimensionX, dimensionY] =[Zombie.throwingAnimation[this.standingIndex],Zombie.throwingCol];
+        this.projectile=false;
         if(this.imageLoaded){
                 this.standingIndex++;
                 ctx.drawImage(this.sprite,dimensionX,dimensionY,frameX,frameY,this.x,this.y,frameX,frameY);

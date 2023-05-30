@@ -21,10 +21,10 @@ class Human extends MovingObject {
         this.word=initialWord;
     }
 
-    constructor (game){
+    constructor (x,y,game){
         const speed = Human.startSpeed
-        const y = Human.start[Math.floor(Math.random()*Human.start.length)];
-        const x = Math.floor(Math.random()*(1800-1500+1))+1500;
+        // const y = Human.start[Math.floor(Math.random()*Human.start.length)];
+        // const x = Math.floor(Math.random()*(1800-1500+1))+3000;
     
         super([x,y],speed,game);
         this.status = 'alive';
@@ -48,7 +48,12 @@ class Human extends MovingObject {
 
     }
 
-
+    getCenterX(){
+        return this.pos[0]+65/2;
+    }
+    getCenterY(){
+        return this.pos[1]+60/2;
+    }
    drawFrame(ctx) {
         let [x,y] = this.pos;
         let personNum = this.person;
@@ -75,7 +80,7 @@ class Human extends MovingObject {
         // ctx.fillText(this.correctLetters.join(''),this.pos[0],this.pos[1]+5);
         // let test = ctx.measureText(this.correctLetters.join('')).width;
         ctx.fillStyle='white';
-        ctx.font = '20px arial';
+        ctx.font = '15px arial';
         ctx.fillText(this.word,this.pos[0],this.pos[1]+5);
     }
     
@@ -89,14 +94,14 @@ class Human extends MovingObject {
 
     move(){
         let [x,y] = this.pos;
-        if (x>0) this.pos = [this.pos[0]-1,this.pos[1]];
+        if (x>0) this.pos = [this.pos[0]-10,this.pos[1]];
     }
 
-    status(){
-        if (!this.lettersToType.length){
-            this.status = 'dead';
-        }
-    }
+//     status(){
+//         if (!this.lettersToType.length){
+//             this.status = 'dead';
+//         }
+// }
     wordCheck(letter){
 
         // if (word===this.word.word){
@@ -106,7 +111,10 @@ class Human extends MovingObject {
                 this.word = this.word.slice(1);
               
             }
-            this.status();
+            if(!this.word.length){
+                this.status='dead';
+                console.log(this);ta
+            }
         }
         
     
