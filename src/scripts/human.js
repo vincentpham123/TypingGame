@@ -51,7 +51,6 @@ class Human extends MovingObject {
         let [x,y] = this.pos;
         let personNum = this.person;
         let frame = this.frame;
-        console.log(this.sprite);
         if (this.imageLoaded ){
             
             ctx.drawImage(this.sprite,Human.spriteWidth*frame,
@@ -88,7 +87,7 @@ class Human extends MovingObject {
 
     move(){
         let [x,y] = this.pos;
-        if (x>0) this.pos = [this.pos[0]-5,this.pos[1]];
+        if (x>0) this.pos = [this.pos[0]-1,this.pos[1]];
     }
 
     // status(){
@@ -119,5 +118,5 @@ class Human extends MovingObject {
     // }
 }
 
-export default Human
+export default Human;
 

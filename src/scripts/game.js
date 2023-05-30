@@ -1,6 +1,6 @@
 import Human from './human.js';
 import Setting from './setting.js';
-
+import Zombie from './zombie.js';
 class Game {
     static num_humans=5;
     static DIM_X = 1500;
@@ -8,9 +8,11 @@ class Game {
     constructor(currentTyping){
         this.typing = currentTyping;
         this.humans = [];
+        this.zombies=[];
         this.setting = [];
         this.addHumans();
         this.addSetting();
+        this.addZombies();
         this.trash=[];
         this.active = false;
         this.time = 0;
@@ -23,7 +25,12 @@ class Game {
         }
 
     }
-
+    addZombies(){
+        // let position=[590,650,680];
+        // for(let i =0;i<3;i++){
+            this.zombies.push(new Zombie(575));
+        }
+    
     addHumans(){
         for(let i =0;i<Game.num_humans;i++){
             this.add(new Human());
@@ -49,6 +56,9 @@ class Game {
         this.humans.forEach((object)=>{
             object.drawFrame(ctx);
         });
+        this.zombies.forEach(zombie=>{
+            zombie.drawFrame(ctx);
+        })
     }
     checkLetter(letter){
         this.humans.forEach(human=>{

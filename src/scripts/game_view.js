@@ -5,7 +5,7 @@ class GameView {
         this.ctx = ctx;
         this.game = game;
         this.lastFrameTime=0;
-        this.frameRate=10;
+        this.frameRate=4;
         this.frameDelay = 1000/this.frameRate
         this.index =0;
         document.addEventListener('keydown',event => {
