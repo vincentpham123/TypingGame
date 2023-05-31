@@ -16,7 +16,6 @@ class Setting {
     }
 
     drawFrame(ctx){
-        
         if (this.imageLoaded){
             ctx.drawImage(this.backgroundImage,0,0);
         }

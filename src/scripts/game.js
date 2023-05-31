@@ -226,7 +226,9 @@ class Game {
         }
     }
 
-
+    getSetting(){
+        return this.setting[0];
+    }
 }
 
 export default Game;

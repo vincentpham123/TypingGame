@@ -1,0 +1,7 @@
+#game{
+    position:relative;
+    display: block;
+    z-index:1;
+    margin: auto;
+    margin-top: 1%;
+}

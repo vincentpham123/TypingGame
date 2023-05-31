@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
     // let gameview = new GameView(game,ctx).start();
     const game = new Game();
     console.log(game);
-    new GameView(game,ctx).start();
+    new GameView(game,ctx,canvas);
   
 
     // setting.width = 1000;
