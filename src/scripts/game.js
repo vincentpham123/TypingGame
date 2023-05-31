@@ -52,17 +52,18 @@ class Game {
     }
     
     addHumans(){
-        const startLane =[680,650,590];
+      
+        const startLane =[590,680,650];
         const minDistance = 200;
         for(let i =0;i<Game.num_humans;i++){
             let positionFound = false;
             
             while(!positionFound ){
-                const position = Math.floor(Math.random()*(10000-1500+1))+1600;
-                const y =startLane[Math.floor(Math.random()*2)];
+                const position = Math.floor(Math.random()*(10000-1500+1))+2000;
+                const y =startLane[Math.floor(Math.random()*startLane.length)];
                 const newHuman = new Human(position,y,this);
                 const overLapCheck = this.humans.some((human)=>{
-                    newHuman.isCollidedWith(human)
+                    newHuman.isCollidedWith(human,65,65)
                 });
                 if (!overLapCheck){
                     this.add(newHuman);
@@ -95,12 +96,8 @@ class Game {
             object.drawFrame(ctx);
         });
         this.zombies.forEach(zombie=>{
-            if(zombie.projectile===true){
-
-                zombie.drawThrowingFrame(ctx);
-            } else {
-                zombie.drawIdleFrame(ctx);
-            }
+            console.log(zombie.targets);
+            zombie.drawFrame(ctx);
             // if zombie status = throw, animate drawthrowingframe, after projectile is thrown
             //change status to not throw. to revert back to idleanimations
             //else animate idleframe for zombie
@@ -124,30 +121,49 @@ class Game {
             human.update();
         })
         this.checkforDeadHumans();
+        this.checkHits();
     }
-    checkforDeadHumans(zombie){
+    // resetProjectileThrown(){
+    //     this.zombies.forEach((zombie)=>{
+    //         zombie.projectileThrown=false;
+    //     });
+    // }
+    //maybe have a total trash for each zombie to throw, so it will just throw
+    //all the trash specific for each humam
+    
+    checkforDeadHumans(){
         this.humans.forEach(human=>{
             if (human.status ==='dead'){
 
                 let deadHumanPosition = human.pos[1];
+                console.log(human);
                 switch (true){
                     case(deadHumanPosition-4===676):
                         //change status for zombie 3 
-                        this.zombies[2].projectile=true;
+                        if (!this.zombies[2].targets.includes(human)){
+                        this.zombies[2].targets.push(human);
+                        }
                         console.log(this.zombies[2]);
                         break;
                     case(deadHumanPosition-20===630):
-                        this.zombies[1].projectile=true;
-                        console.log(this.zombies[1]);
+                        if (!this.zombies[1].targets.includes(human)){
+                        this.zombies[1].targets.push(human);
+                        }
                         break;
                     case(deadHumanPosition-15===575):
-                        this.zombies[0].projectile=true;
-                        console.log(this.zombies[0]);
+                    if (!this.zombies[0].targets.includes(human)){
+                        this.zombies[0].targets.push(human);
+                        }
                         break;
                 }
 
             }
         })
+        this.zombies.forEach((zombie) => {
+            if (zombie.targets.length === 0) {
+              zombie.projectileThrown = false;
+            }
+          });
     }
     checkHits(){
         //check if trash hit dead human
@@ -155,9 +171,12 @@ class Game {
             for(let j=0;j<this.humans.length;j++){
                 const trash1 = this.trash[i];
                 const human1 = this.humans[j];
-                if(trash1.isCollidedWith(human1)&&human1.pos[0]<1500&&human1.status==='dead'){
+                console.log(trash1);
+                if (trash1 && human1){
+                if(trash1.isCollidedWith(human1,20,65) && human1.pos[0]<1500&&human1.status==='dead'){
                     this.remove(trash1);
                     this.remove(human1);
+                }
                 }
             }
         }

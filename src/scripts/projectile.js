@@ -45,7 +45,7 @@ class Projectile extends MovingObject {
         }
     }
     move(){
-        this.pos = [this.pos[0]+5,this.pos[1]];
+        this.pos = [this.pos[0]+25,this.pos[1]];
     }
     
 

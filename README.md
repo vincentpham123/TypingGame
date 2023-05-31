@@ -50,7 +50,8 @@ This project will be implemented using the following technologies:
     .Webpack and Babel to bundle and transple the source JavaScript Code 
     .npm to manage project dependencies 
     .https://api.quotable.io to obtain quotes
-    .https://api-ninjas.com/api/randomword to obtain random words 
+    .https://random-word-api.vercel.app/ to obtain random words 
+  
     .A website that provides free sprites (TBD)
 
 

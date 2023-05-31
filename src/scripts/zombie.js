@@ -22,26 +22,50 @@ class Zombie{
         }
         this.sprite.src = Zombie.url;
         this.idleAnimation=[1,2,3,4,5,6];
+        this.targets=[];
         this.projectile=false;
+        this.projectileThrown=false;
 
     }
 
+    drawFrame(ctx){
+        if (this.targets.length>0 && !this.projectile){
+            this.drawThrowingFrame(ctx);
+        }else{
+            this.drawIdleFrame(ctx);
+        }
+    }
     throwProjectile(){
-        let trash = new Projectile(this.y);
-        this.game.add(trash);
+        if (this.targets.length > 0&&!this.projectileThrown){
+            const target = this.targets.shift();
+            const trash = new Projectile(this.y,this.game);
+            this.game.add(trash);
+            this.projectileThrown=true;
+            // Remove the target human from the targets array
+            const index = this.targets.indexOf(target);
+            if (index !== -1) {
+              this.targets.splice(index, 1);
+            }
+          }
+        // let targetLength=this.targets.length
+        // for(let i=this.targets.length-1;i>=0;i--){
+        //     let trash = new Projectile(this.y);
+        //     this.game.add(trash)
+        //     this.targets.splice(i,1);
+        // }
     }
     drawThrowingFrame(ctx){
         let [frameX,frameY] = [Zombie.throwingDimensions[this.standingIndex][0],Zombie.throwingDimensions[this.standingIndex][1]];
         let [dimensionX, dimensionY] =[Zombie.throwingAnimation[this.standingIndex],Zombie.throwingCol];
-        this.projectile=false;
         if(this.imageLoaded){
-                this.standingIndex++;
-                ctx.drawImage(this.sprite,dimensionX,dimensionY,frameX,frameY,this.x,this.y,frameX,frameY);
-                // ctx.drawImage(this.sprite,63,320,50,70,this.x,this.y,50,70);
-
-               if(this.standingIndex>7) {
-               this.standingIndex = 0;
-               this.throwProjectile();
+            this.standingIndex++;
+            ctx.drawImage(this.sprite,dimensionX,dimensionY,frameX,frameY,this.x,this.y,frameX,frameY);
+            // ctx.drawImage(this.sprite,63,320,50,70,this.x,this.y,50,70);
+            
+            if(this.standingIndex>7) {
+                this.throwProjectile();
+                this.standingIndex = 0;
+                this.projectileThrown=false;
                }
             }
         }

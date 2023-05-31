@@ -17,14 +17,12 @@ class Human extends MovingObject {
         do{
             initialWord = await getRandomWord();
             
-        }while(initialWord.length>letters);
+        }while(initialWord.length > letters);
         this.word=initialWord;
     }
 
     constructor (x,y,game){
         const speed = Human.startSpeed
-        // const y = Human.start[Math.floor(Math.random()*Human.start.length)];
-        // const x = Math.floor(Math.random()*(1800-1500+1))+3000;
     
         super([x,y],speed,game);
         this.status = 'alive';
@@ -80,7 +78,7 @@ class Human extends MovingObject {
         // ctx.fillText(this.correctLetters.join(''),this.pos[0],this.pos[1]+5);
         // let test = ctx.measureText(this.correctLetters.join('')).width;
         ctx.fillStyle='white';
-        ctx.font = '15px arial';
+        ctx.font = '20px arial';
         ctx.fillText(this.word,this.pos[0],this.pos[1]+5);
     }
     
@@ -94,7 +92,7 @@ class Human extends MovingObject {
 
     move(){
         let [x,y] = this.pos;
-        if (x>0) this.pos = [this.pos[0]-10,this.pos[1]];
+        if (x>100) this.pos = [this.pos[0]-10,this.pos[1]];
     }
 
 //     status(){
@@ -113,7 +111,7 @@ class Human extends MovingObject {
             }
             if(!this.word.length){
                 this.status='dead';
-                console.log(this);ta
+                console.log(this);
             }
         }
         
