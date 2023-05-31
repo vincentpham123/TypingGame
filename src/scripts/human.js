@@ -25,6 +25,7 @@ class Human extends MovingObject {
         const speed = Human.startSpeed
     
         super([x,y],speed,game);
+        this.targeted=false;
         this.status = 'alive';
         this.setRandomWord();
         this.sprite = new Image();

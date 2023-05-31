@@ -29,24 +29,23 @@ class Zombie{
     }
 
     drawFrame(ctx){
-        if (this.targets.length>0 && !this.projectile){
-            this.drawThrowingFrame(ctx);
-        }else{
+        
+        console.log(this.targets);
+        if (this.targets.every((target=>target.targeted===true))|| this.targets.length===0){
             this.drawIdleFrame(ctx);
+        }else{
+            this.drawThrowingFrame(ctx);
         }
     }
     throwProjectile(){
-        if (this.targets.length > 0&&!this.projectileThrown){
+        if (this.targets.length > 0){
             const target = this.targets.shift();
+            if(!target.targeted){
             const trash = new Projectile(this.y,this.game);
             this.game.add(trash);
-            this.projectileThrown=true;
-            // Remove the target human from the targets array
-            const index = this.targets.indexOf(target);
-            if (index !== -1) {
-              this.targets.splice(index, 1);
+            target.targeted=true;
             }
-          }
+        }
         // let targetLength=this.targets.length
         // for(let i=this.targets.length-1;i>=0;i--){
         //     let trash = new Projectile(this.y);
@@ -65,7 +64,6 @@ class Zombie{
             if(this.standingIndex>7) {
                 this.throwProjectile();
                 this.standingIndex = 0;
-                this.projectileThrown=false;
                }
             }
         }

@@ -10,6 +10,7 @@ class Game {
         this.humans = [];
         this.zombies=[];
         this.setting = [];
+        this.humanTargets=[];
         this.addHumans();
         this.addSetting();
         this.addZombies();
@@ -18,7 +19,7 @@ class Game {
         this.time = 0;
         document.addEventListener('keydown',event => {
             //checking key pressed 
-            console.log(event.key);
+           
             this.checkLetter(event.key);
             //check if the event.key is equal to any of word[index]
             //if equal, update the correct letter for all words currently on the screen,
@@ -61,7 +62,7 @@ class Game {
             while(!positionFound ){
                 const position = Math.floor(Math.random()*(10000-1500+1))+2000;
                 const y =startLane[Math.floor(Math.random()*startLane.length)];
-                const newHuman = new Human(position,y,this);
+                const newHuman = new Human(position+100,y,this);
                 const overLapCheck = this.humans.some((human)=>{
                     newHuman.isCollidedWith(human,65,65)
                 });
@@ -96,7 +97,6 @@ class Game {
             object.drawFrame(ctx);
         });
         this.zombies.forEach(zombie=>{
-            console.log(zombie.targets);
             zombie.drawFrame(ctx);
             // if zombie status = throw, animate drawthrowingframe, after projectile is thrown
             //change status to not throw. to revert back to idleanimations
@@ -121,6 +121,7 @@ class Game {
             human.update();
         })
         this.checkforDeadHumans();
+        this.assignHumans();
         this.checkHits();
     }
     // resetProjectileThrown(){
@@ -134,56 +135,88 @@ class Game {
     checkforDeadHumans(){
         this.humans.forEach(human=>{
             if (human.status ==='dead'){
-
+                this.humanTargets.push(human);
                 let deadHumanPosition = human.pos[1];
-                console.log(human);
-                switch (true){
-                    case(deadHumanPosition-4===676):
-                        //change status for zombie 3 
-                        if (!this.zombies[2].targets.includes(human)){
-                        this.zombies[2].targets.push(human);
-                        }
-                        console.log(this.zombies[2]);
-                        break;
-                    case(deadHumanPosition-20===630):
-                        if (!this.zombies[1].targets.includes(human)){
-                        this.zombies[1].targets.push(human);
-                        }
-                        break;
-                    case(deadHumanPosition-15===575):
-                    if (!this.zombies[0].targets.includes(human)){
-                        this.zombies[0].targets.push(human);
-                        }
-                        break;
+
+                // switch (true){
+                //     case(deadHumanPosition-4===676):
+                //         //change status for zombie 3 
+                //         if (!this.zombies[2].targets.includes(human)){
+                //         !this.zombies[2].targets.includes(human)
+                //         this.zombies[2].targets.push(human);
+                //         this.zombies[2].projectile=true;
+                //         }
+                //         console.log(this.zombies[2]);
+                //         break;
+                //     case(deadHumanPosition-20===630):
+                //         if (!this.zombies[1].targets.includes(human)){
+                //         this.zombies[1].targets.push(human);
+                //         this.zombies[1].projectile=true;
+                //         }
+                //         break;
+                //     case(deadHumanPosition-15===575):
+                //     if (!this.zombies[0].targets.includes(human)){
+                //         this.zombies[0].targets.push(human);
+                //         this.zombies[0].projectile=true;
+                //         }
+                //         break;
                 }
 
+            });
+        }
+        assignHumans(){
+            for(let i =0;i<this.humanTargets.length;i++){
+            let deadHuman =this.humanTargets[i];
+            let deadHumanPosition = this.humanTargets[i].pos[1];
+            switch (true){
+                case(deadHumanPosition-4===676):
+                    //change status for zombie 3 
+                    if (!this.zombies[2].targets.includes(deadHuman)){
+                    this.zombies[2].targets.push(deadHuman);
+                    this.zombies[2].projectile=true;
+                    }
+                    console.log(this.zombies[2]);
+                    break;
+                case(deadHumanPosition-20===630):
+                    if (!this.zombies[1].targets.includes(deadHuman)){
+                    this.zombies[1].targets.push(deadHuman);
+                    this.zombies[1].projectile=true;
+                    }
+                    break;
+                case(deadHumanPosition-15===575):
+                if (!this.zombies[0].targets.includes(deadHuman)){
+                    this.zombies[0].targets.push(deadHuman);
+                    this.zombies[0].projectile=true;
+                    }
+                    break;
             }
-        })
-        this.zombies.forEach((zombie) => {
-            if (zombie.targets.length === 0) {
-              zombie.projectileThrown = false;
             }
-          });
-    }
+        }
+    
+        // this.zombies.forEach((zombie) => {
+        //     if (zombie.targets.length === 0) {
+        //       zombie.projectileThrown = false;
+        //     }
+        //   });
+    
     checkHits(){
         //check if trash hit dead human
         for(let i =0;i<this.trash.length;i++){
             for(let j=0;j<this.humans.length;j++){
                 const trash1 = this.trash[i];
                 const human1 = this.humans[j];
-                console.log(trash1);
                 if (trash1 && human1){
-                if(trash1.isCollidedWith(human1,20,65) && human1.pos[0]<1500&&human1.status==='dead'){
-                    this.remove(trash1);
-                    this.remove(human1);
-                }
+                    if(trash1.isCollidedWith(human1,20,65) && human1.pos[0]<1500&&human1.status==='dead'){
+                        this.remove(trash1);
+                        this.remove(human1);
+                    }
                 }
             }
         }
     }
 
     remove(object){
-        console.log('remove in process');
+
         if (object instanceof Projectile){
             this.trash.splice(this.trash.indexOf(object),1);
         } else if (object instanceof Human){
@@ -195,4 +228,5 @@ class Game {
 
 
 }
+
 export default Game;
