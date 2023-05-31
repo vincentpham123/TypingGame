@@ -14,10 +14,10 @@ class Human extends MovingObject {
     // need to set up 3 random positions for a human, 
     async setRandomWord(letters=5){
         let initialWord;
-        do{
+        // do{
             initialWord = await getRandomWord();
             
-        }while(initialWord.length > letters);
+        // }while(initialWord.length > letters);
         this.word=initialWord;
     }
 

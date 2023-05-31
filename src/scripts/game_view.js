@@ -11,7 +11,6 @@ class GameView {
         this.index =0;
         this.menuImage=new Image();
         this.imageLoaded=false;
-        this.menuKeys=[];
         this.menuImage.onload=()=>{
             this.imageLoaded=true;
             this.startMenu();
@@ -36,22 +35,31 @@ class GameView {
         if(this.imageLoaded) this.ctx.drawImage(this.menuImage,0,0);
         this.ctx.drawImage(this.menuImage, 0, 0);
         const start = document.getElementById('start');
+        let typingindex=0;
         const startMenuEvent = document.addEventListener('keydown', (event)=>{
-        if (event.key ==='Backspace'){
-            this.menuKeys.pop();
-        } else if(GameView.alphabet.includes(event.key.toUpperCase())){
-            this.menuKeys.push(event.key.toLowerCase());
-        };
+        // if (event.key ==='Backspace'){
+        //     this.menuKeys.pop();
+        // } else if(GameView.alphabet.includes(event.key.toUpperCase())){
+        //     this.menuKeys.push(event.key.toLowerCase());
+        // }
+        console.log(event.key);
         let letters = document.getElementsByClassName('startLetters');
-        for(let i =0;i<letters.length;i++){
-            let letter=letters[i].innerText;
-            console.log(letter);
-            if (letter===this.menuKeys[i]){
-                letters[i].classList.add('typed');
-            } else {
-                letters[i].classList.remove('typed');
+            for(let i =typingindex;i<letters.length;i++){
+                let letter=letters[i].innerText;
+                if (letter===event.key){
+                    letters[i].classList.add('typed');
+                    typingindex++;
+                    console.log(typingindex)
+                    break;
+                } 
+                else {
+                    typingindex=0;
+                    for(let j=0;j<letters.length;j++)
+                        letters[j].classList.remove('typed');
+                }
             }
-        }
+            
+          
         let check = document.getElementsByClassName('typed');
         if(check.length===5) {
             setTimeout(()=>this.start(),1000);
@@ -63,27 +71,27 @@ class GameView {
         // title.setAttribute('id','myTitle');
         })
     }
-    startMenuEvent(event){
-        if (event.key ==='Backspace'){
-            this.menuKeys.pop();
-        } else if(GameView.alphabet.includes(event.key.toUpperCase())){
-            this.menuKeys.push(event.key.toLowerCase());
-        };
-        let letters = document.getElementsByClassName('startLetters');
-        for(let i =0;i<letters.length;i++){
-            let letter=letters[i].innerText;
-            console.log(letter);
-            if (letter===this.menuKeys[i]){
-                letters[i].classList.add('typed');
-            } else {
-                letters[i].classList.remove('typed');
-            }
-        }
-        let check = document.getElementsByClassName('typed');
-        if(check.length===5) {
-            setTimeout(()=>this.startGame(),1000);
-        }
-    }
+    // startMenuEvent(event){
+    //     if (event.key ==='Backspace'){
+    //         this.menuKeys.pop();
+    //     } else if(GameView.alphabet.includes(event.key.toUpperCase())){
+    //         this.menuKeys.push(event.key.toLowerCase());
+    //     };
+    //     let letters = document.getElementsByClassName('startLetters');
+    //     for(let i =0;i<letters.length;i++){
+    //         let letter=letters[i].innerText;
+    //         console.log(letter);
+    //         if (letter===this.menuKeys[i]){
+    //             letters[i].classList.add('typed');
+    //         } else {
+    //             letters[i].classList.remove('typed');
+    //         }
+    //     }
+    //     let check = document.getElementsByClassName('typed');
+    //     if(check.length===5) {
+    //         setTimeout(()=>this.startGame(),1000);
+    //     }
+    // }
     modeSelection(){
         this.menuKeys=[];
         let navbar = document.getElementById('navBar')

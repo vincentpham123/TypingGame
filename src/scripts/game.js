@@ -60,9 +60,9 @@ class Game {
             let positionFound = false;
             
             while(!positionFound ){
-                const position = Math.floor(Math.random()*(10000-1500+1))+2000;
+                const position = Math.floor(Math.random()*(4000-1500+1))+1500;
                 const y =startLane[Math.floor(Math.random()*startLane.length)];
-                const newHuman = new Human(position+100,y,this);
+                const newHuman = new Human(position+500,y,this);
                 const overLapCheck = this.humans.some((human)=>{
                     newHuman.isCollidedWith(human,65,65)
                 });
