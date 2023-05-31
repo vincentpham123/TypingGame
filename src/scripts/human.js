@@ -71,13 +71,12 @@ class Human extends MovingObject {
             
             
         }
-        // ctx.drawImage(this.sprite,65,61,65,61,this.pos[0],this.pos[1],65,61);
+        
     }
 
     drawWord(ctx){
 
-        // ctx.fillText(this.correctLetters.join(''),this.pos[0],this.pos[1]+5);
-        // let test = ctx.measureText(this.correctLetters.join('')).width;
+      
         ctx.fillStyle='white';
         ctx.font = '20px arial';
         ctx.fillText(this.word,this.pos[0],this.pos[1]+5);
@@ -86,9 +85,6 @@ class Human extends MovingObject {
     update(){
         if (this.frame<this.maxFrame) this.frame++;
         else this.frame = this.minFrame;
-        // if (!this.lettersToType.length){
-        //     this.status = 'dead';
-        // }
     }
 
     move(){
@@ -96,11 +92,7 @@ class Human extends MovingObject {
         if (x>100) this.pos = [this.pos[0]-10,this.pos[1]];
     }
 
-//     status(){
-//         if (!this.lettersToType.length){
-//             this.status = 'dead';
-//         }
-// }
+
     wordCheck(letter){
 
         // if (word===this.word.word){
@@ -121,11 +113,7 @@ class Human extends MovingObject {
 
    
 
-    // checkCollision(rect1,rect2){
-    //     //check if a projectile has hit a human
-        
-
-    // }
+  
 }
 
 export default Human;

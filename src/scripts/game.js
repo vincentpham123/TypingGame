@@ -136,30 +136,6 @@ class Game {
         this.humans.forEach(human=>{
             if (human.status ==='dead'){
                 this.humanTargets.push(human);
-                let deadHumanPosition = human.pos[1];
-
-                // switch (true){
-                //     case(deadHumanPosition-4===676):
-                //         //change status for zombie 3 
-                //         if (!this.zombies[2].targets.includes(human)){
-                //         !this.zombies[2].targets.includes(human)
-                //         this.zombies[2].targets.push(human);
-                //         this.zombies[2].projectile=true;
-                //         }
-                //         console.log(this.zombies[2]);
-                //         break;
-                //     case(deadHumanPosition-20===630):
-                //         if (!this.zombies[1].targets.includes(human)){
-                //         this.zombies[1].targets.push(human);
-                //         this.zombies[1].projectile=true;
-                //         }
-                //         break;
-                //     case(deadHumanPosition-15===575):
-                //     if (!this.zombies[0].targets.includes(human)){
-                //         this.zombies[0].targets.push(human);
-                //         this.zombies[0].projectile=true;
-                //         }
-                //         break;
                 }
 
             });
@@ -171,20 +147,19 @@ class Game {
             switch (true){
                 case(deadHumanPosition-4===676):
                     //change status for zombie 3 
-                    if (!this.zombies[2].targets.includes(deadHuman)){
+                    if (!this.zombies[2].targets.includes(deadHuman)&&!this.zombies[2].killed.includes(deadHuman)){
                     this.zombies[2].targets.push(deadHuman);
                     this.zombies[2].projectile=true;
                     }
-                    console.log(this.zombies[2]);
                     break;
                 case(deadHumanPosition-20===630):
-                    if (!this.zombies[1].targets.includes(deadHuman)){
+                    if (!this.zombies[1].targets.includes(deadHuman)&&!this.zombies[1].killed.includes(deadHuman)){
                     this.zombies[1].targets.push(deadHuman);
                     this.zombies[1].projectile=true;
                     }
                     break;
                 case(deadHumanPosition-15===575):
-                if (!this.zombies[0].targets.includes(deadHuman)){
+                if (!this.zombies[0].targets.includes(deadHuman)&&!this.zombies[0].killed.includes(deadHuman)){
                     this.zombies[0].targets.push(deadHuman);
                     this.zombies[0].projectile=true;
                     }
@@ -193,11 +168,6 @@ class Game {
             }
         }
     
-        // this.zombies.forEach((zombie) => {
-        //     if (zombie.targets.length === 0) {
-        //       zombie.projectileThrown = false;
-        //     }
-        //   });
     
     checkHits(){
         //check if trash hit dead human

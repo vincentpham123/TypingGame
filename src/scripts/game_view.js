@@ -126,7 +126,6 @@ class GameView {
         let title = document.getElementById('myTitle')
         navbar.style.display='none'
         title.style.display='none'
-        console.log(this.game)
         requestAnimationFrame(this.animate.bind(this));
     }
 

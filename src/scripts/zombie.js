@@ -23,35 +23,36 @@ class Zombie{
         this.sprite.src = Zombie.url;
         this.idleAnimation=[1,2,3,4,5,6];
         this.targets=[];
+        this.killed=[];
         this.projectile=false;
         this.projectileThrown=false;
 
     }
 
     drawFrame(ctx){
-        
-        console.log(this.targets);
         if (this.targets.every((target=>target.targeted===true))|| this.targets.length===0){
             this.drawIdleFrame(ctx);
-        }else{
+        }else if(this.targets.some(target=>target.targeted===false)){
+            console.log(this.targets);
+            console.log(this);
             this.drawThrowingFrame(ctx);
+        } else{
+            this.drawIdleFrame(ctx);
         }
     }
     throwProjectile(){
+        console.log('throwing');
         if (this.targets.length > 0){
             const target = this.targets.shift();
+            this.killed.push(target);
+            this.targets.shift();
             if(!target.targeted){
             const trash = new Projectile(this.y,this.game);
             this.game.add(trash);
             target.targeted=true;
             }
         }
-        // let targetLength=this.targets.length
-        // for(let i=this.targets.length-1;i>=0;i--){
-        //     let trash = new Projectile(this.y);
-        //     this.game.add(trash)
-        //     this.targets.splice(i,1);
-        // }
+       
     }
     drawThrowingFrame(ctx){
         let [frameX,frameY] = [Zombie.throwingDimensions[this.standingIndex][0],Zombie.throwingDimensions[this.standingIndex][1]];
