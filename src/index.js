@@ -11,7 +11,7 @@ import MovingObject from './scripts/movingObject.js';
 import Setting from './scripts/setting.js';
 import Human from './scripts/human.js';
 import Game from "./scripts/game.js"
-import Resource from './scripts/resources.js'
+
 import GameView from "./scripts/game_view.js"
 import Projectile from './scripts/projectile.js'
 import Word from './scripts/word.js';
