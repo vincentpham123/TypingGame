@@ -65,7 +65,7 @@ class Game {
             console.log(this.humanSpawnTime);
             console.log('spawntimechange');
             if(this.gameOver) clearInterval(timer);
-            if(this.humanSpawnTime>=1000) this.humanSpawnTime-=500;
+            if(this.humanSpawnTime>=100) this.humanSpawnTime-=500;
         },2000)
         let speeder = setInterval(()=>{
             if(this.gameOver) clearInterval(speeder);
