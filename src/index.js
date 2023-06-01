@@ -35,8 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let resources = new Resource(imageUrls);
     let setting = new Setting(ctx);
     // setting.drawFrame(ctx);
-    canvas.width = 1500
-    canvas.height = 900
+    canvas.width = 1400;
+    canvas.height = 900;
 
     // let trash = new Projectile(ctx);
     // trash.drawFrame(ctx);
@@ -45,7 +45,8 @@ document.addEventListener("DOMContentLoaded", () => {
     // let game = new Game();
     // let gameview = new GameView(game,ctx).start();
     const game = new Game();
-    console.log(game);
+    console.log(game.setting.backgroundImage);
+
    new GameView(game,ctx,canvas);
  
 

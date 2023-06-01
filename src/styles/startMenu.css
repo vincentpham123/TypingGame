@@ -65,6 +65,22 @@
 #translation{
     font-size:20px;
 }
+#score{
+    font-size: 30px;
+    position:absolute;
+    left: 14%;
+    top: 5%;
+    z-index:3;
+
+}
+#humansKilled{
+    font-size: 30px;
+    position:absolute;
+    left: 14%;
+    top: 10%;
+    z-index:3;
+    
+}
 .typed{
     color:black;
 }

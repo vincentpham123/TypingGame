@@ -9,7 +9,7 @@ class Setting {
             // this.drawFrame(ctx);
         }
         // this.houseImage =  new Image();
-        this.backgroundImage.src = './images/bg4.0.png';
+        this.backgroundImage.src = './images/newbg.png';
         // this.houseImage.src = './images/house1.png';
         // this.skyImage = new Image();
         // this.skyImage.src = './images/sky1.png'

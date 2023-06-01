@@ -2,12 +2,12 @@ import MovingObject from './movingObject.js';
 import * as Util from './util.js';
 import Resources from './resources.js';
 import Word from './word.js';
-import {getRandomWord} from './wordgenerator.js';
+import * as RandomWord from './wordgenerator.js';
 
 class Human extends MovingObject {
     static IMAGE = './images/walkcyclevarious.png';
     static start =[680,650,590];
-    static startSpeed=.5;
+   
     static frame = 9;
     static spriteHeight = 60;
     static spriteWidth = 65;
@@ -15,17 +15,18 @@ class Human extends MovingObject {
     async setRandomWord(letters=5){
         let initialWord;
         // do{
-            initialWord = await getRandomWord();
+            initialWord = await RandomWord.getRandomWord();
             
         // }while(initialWord.length > letters);
         this.word=initialWord;
+        this.score=100*this.word.length;
     }
 
-    constructor (x,y,game){
-        const speed = Human.startSpeed
+    constructor (x,y,speed,game){
+      
     
         super([x,y],speed,game);
-        this.score=100;
+        
         this.targeted=false;
         this.status = 'alive';
         this.setRandomWord();
@@ -89,8 +90,13 @@ class Human extends MovingObject {
     }
 
     move(){
+        // setInterval(()=>{
+        //     if (this.speed>=20){
+        //         this.speed+2
+        //     }},10000);
+        
         let [x,y] = this.pos;
-        if (x>100) this.pos = [this.pos[0]-10,this.pos[1]];
+        if (x>100) this.pos = [this.pos[0]-this.speed,this.pos[1]];
     }
 
 

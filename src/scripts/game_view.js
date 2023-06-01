@@ -7,7 +7,9 @@ class GameView {
         this.game = game;
         this.lastFrameTime=0;
         this.frameRate=10;
-        this.frameDelay = 1000/this.frameRate
+        this.frameDelay = 1000/this.frameRate;
+        this.score = document.getElementById('score');
+        this.humansKilled = document.getElementById('humansKilled');
         this.index =0;
         this.menuImage=new Image();
         this.imageLoaded=false;
@@ -15,7 +17,7 @@ class GameView {
             this.imageLoaded=true;
             this.startMenu();
         }
-        this.menuImage.src = './images/bg4.0.png';
+        this.menuImage.src = './images/newbg.png';
         this.typingindex=0;
         this.againIndex=0;
         this.returnIndex=0;
@@ -47,6 +49,7 @@ class GameView {
             
           
             // };
+            if(this.game.gameOver){
             let againLetters =document.getElementsByClassName('againLetters');
             let returnLetters = document.getElementsByClassName('returnLetters');
             
@@ -89,6 +92,7 @@ class GameView {
                     break;
               
             }
+        }
             // for(let i =this.againIndex;i<againLetters.length;i++){
             //     let letter=againLetters[i].innerText;
             //     if (letter===event.key){
@@ -264,10 +268,12 @@ class GameView {
     start(){
         let navbar = document.getElementById('navBar')
         let title = document.getElementById('myTitle')
-        navbar.style.display='none'
-        title.style.display='none'
+        navbar.style.display='none';
+        title.style.display='none';
+        this.score.style.display='block';
+        this.humansKilled.style.display='block';
         
-
+        this.game.addHuman();
 
         requestAnimationFrame(this.animate.bind(this));
     }
@@ -297,6 +303,8 @@ class GameView {
                 this.game.moveObjects();
                 this.game.update();
                 this.game.draw(this.ctx);
+                this.score.innerText=`Score: ${this.game.score}`;
+                this.humansKilled.innerText =`Kills: ${this.game.humansKilled}`;
     
             }
             requestAnimationFrame(this.animate.bind(this));

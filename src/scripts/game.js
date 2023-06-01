@@ -3,16 +3,18 @@ import Setting from './setting.js';
 import Zombie from './zombie.js';
 import Projectile from './projectile.js';
 class Game {
-    static num_humans=20;
     static DIM_X = 1500;
     static DIM_Y = 900;
     constructor(){
+        this.humanSpawnTime=2000;
+        this.numberOfHumans=0;
+        this.humansKilled=0;
+        this.humanSpeed=5;
         this.score=0;
         this.humans=[];
         this.zombies=[];
         this.setting = [];
         this.humanTargets=[];
-        this.addHumans();
         this.addSetting();
         this.addZombies();
         this.trash=[];
@@ -46,8 +48,8 @@ class Game {
     addZombies(){
         let position=[575,630,676];
         let zombie1 = new Zombie(575,this);
-        let zombie2 = new Zombie(630,this);
-        let zombie3 = new Zombie(676,this);
+        let zombie2 = new Zombie(640,this);
+        let zombie3 = new Zombie(700,this);
 
         this.zombies.push(zombie1);
         this.zombies.push(zombie2);
@@ -55,23 +57,36 @@ class Game {
     
     }
     
-    addHumans(){
-      
-        const startLane =[590,680,650];
-        const minDistance = 200;
-        for(let i =0;i<Game.num_humans;i++){
-            let positionFound = false;
-            
-            while(!positionFound ){
-                const position = Math.floor(Math.random()*(4000-1500+1))+1500;
-                const y =startLane[Math.floor(Math.random()*startLane.length)];
-                const newHuman = new Human(position,y,this);
-                    this.add(newHuman);
-                    positionFound=true;
-                }
-            
-        }
+    addHuman(){
+        console.log('called');
+        const startLane =[590,710,650];
+        const minDistance =200;
+        let timer = setInterval(()=>{
+            console.log(this.humanSpawnTime);
+            console.log('spawntimechange');
+            if(this.gameOver) clearInterval(timer);
+            if(this.humanSpawnTime>=1000) this.humanSpawnTime-=500;
+        },5000)
+        let speeder = setInterval(()=>{
+            if(this.gameOver) clearInterval(speeder);
+            console.log('speed change');
+            console.log(this.humanSpeed);
+            if(this.humanSpeed<=15) this.humanSpeed+=.5;
+        },5000)
+        let adder = setInterval(()=>{
+            if (this.gameOver) clearInterval(adder);
+            let randomX = Math.floor(Math.random()*(300+1))+1400;
+            if (!this.numberOfHumans){
+                this.add(new Human(randomX,590,this.humanSpeed,this));
+                this.numberOfHumans+=1;
+            }
+            //need to add a new human, do numberofhumans%3 to cycle throguh cycle lanes
+            this.numberOfHumans+=1;
+            let laneNumber = this.numberOfHumans%3; 
+            this.add(new Human(randomX,startLane[laneNumber],this.humanSpeed,this));
+        },this.humanSpawnTime)
     }
+
     addSetting(){
         this.setting.push(new Setting());
     }
@@ -151,7 +166,7 @@ class Game {
             let deadHuman =this.humanTargets[i];
             let deadHumanPosition = this.humanTargets[i].pos[1];
             switch (true){
-                case(deadHumanPosition-4===676):
+                case(deadHumanPosition-10===700):
                     //change status for zombie 3 
                     if (!this.zombies[2].targets.includes(deadHuman)&&!this.zombies[2].killed.includes(deadHuman)){
                     this.zombies[2].targets.push(deadHuman);
@@ -197,6 +212,8 @@ class Game {
             this.trash.splice(this.trash.indexOf(object),1);
         } else if (object instanceof Human){
             this.humans.splice(this.humans.indexOf(object),1);
+            this.score+=object.score;
+            this.humansKilled+=1;
         } else {
             throw new Error("unknown type of object");
         }
@@ -206,12 +223,18 @@ class Game {
         return this.setting[0];
     }
     restartObjects(){
+        this.humanSpawnTime=2000;
+        this.humanSpeed=5;
+        this.score=0;
+        this.humansKilled=0;
+        this.humanSpeed=2;
+        this.numberOfHumans=0;
         this.gameOver=false;
         this.humans = [];
         this.trash=[];
         this.zombies=[];
         this.addZombies();
-        this.addHumans();
+        this.addHuman();
     }
 }
 
