@@ -234,7 +234,6 @@ class Game {
         this.trash=[];
         this.zombies=[];
         this.addZombies();
-        this.addHuman();
     }
 }
 
