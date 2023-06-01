@@ -1,6 +1,6 @@
 import MovingObject from './movingObject.js';
 import * as Util from './util.js';
-import Resources from './resources.js';
+
 import Word from './word.js';
 import * as RandomWord from './wordgenerator.js';
 

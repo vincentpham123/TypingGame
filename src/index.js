@@ -32,8 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
     './images/house1.png',
     './images/walkcyclevarious.png',
     './images/wireframe.png'];
-    let resources = new Resource(imageUrls);
-    let setting = new Setting(ctx);
     // setting.drawFrame(ctx);
     canvas.width = 1400;
     canvas.height = 900;

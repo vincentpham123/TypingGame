@@ -68,7 +68,7 @@
 #score{
     font-size: 30px;
     position:absolute;
-    left: 14%;
+    left: 10%;
     top: 5%;
     z-index:3;
 
@@ -76,7 +76,7 @@
 #humansKilled{
     font-size: 30px;
     position:absolute;
-    left: 14%;
+    left: 10%;
     top: 10%;
     z-index:3;
     
@@ -85,9 +85,12 @@
     color:black;
 }
 
-.links{
+#sitelinks{
+    
     position:absolute;
-    left: 5%;
-    top:5%;
+    gap: 5%;
+    right: 5%;
+    display: flex;
     z-index:3;
+    top:5%;
 }
