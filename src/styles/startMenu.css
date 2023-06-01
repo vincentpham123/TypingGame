@@ -24,7 +24,7 @@
     left: 30%;
     position: absolute;
     z-index:2;
-    top:10%;
+    top:15%;
 }
 #yes{
     color: red;
@@ -32,7 +32,7 @@
     z-index: 2;
     font-size:30px;
     left:40%;
-    top:22%;
+    top:25%;
 }
 #no{
     color: red;
@@ -40,7 +40,7 @@
     z-index: 2;
     font-size:30px;
     left:55%;
-    top:22%;
+    top:25%;
 }
 
 #navBar{
@@ -68,15 +68,17 @@
 #score{
     font-size: 30px;
     position:absolute;
-    left: 10%;
+    margin-left:auto;
+    left: 14%;
     top: 5%;
     z-index:3;
 
 }
 #humansKilled{
+    margin-left:auto;
     font-size: 30px;
     position:absolute;
-    left: 10%;
+    left: 14%;
     top: 10%;
     z-index:3;
     
@@ -93,4 +95,9 @@
     display: flex;
     z-index:3;
     top:5%;
+}
+
+#instructions{
+    font-size:15px;
+    color:yellow;
 }
