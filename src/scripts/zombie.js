@@ -33,15 +33,13 @@ class Zombie{
         if (this.targets.every((target=>target.targeted===true))|| this.targets.length===0){
             this.drawIdleFrame(ctx);
         }else if(this.targets.some(target=>target.targeted===false)){
-            console.log(this.targets);
-            console.log(this);
             this.drawThrowingFrame(ctx);
         } else{
             this.drawIdleFrame(ctx);
         }
     }
     throwProjectile(){
-        console.log('throwing');
+
         if (this.targets.length > 0){
             const target = this.targets.shift();
             this.killed.push(target);

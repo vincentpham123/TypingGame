@@ -7,7 +7,8 @@ class Game {
     static DIM_X = 1500;
     static DIM_Y = 900;
     constructor(){
-        this.humans = [];
+        this.score=0;
+        this.humans=[];
         this.zombies=[];
         this.setting = [];
         this.humanTargets=[];
@@ -17,6 +18,7 @@ class Game {
         this.trash=[];
         this.active = false;
         this.time = 0;
+        this.gameOver=false;
         document.addEventListener('keydown',event => {
             //checking key pressed 
            
@@ -29,7 +31,6 @@ class Game {
 
     }
 
-    
     add(object){
         if (object instanceof Human) {
             this.humans.push(object);
@@ -40,6 +41,8 @@ class Game {
           }
 
     }
+
+
     addZombies(){
         let position=[575,630,676];
         let zombie1 = new Zombie(575,this);
@@ -62,15 +65,11 @@ class Game {
             while(!positionFound ){
                 const position = Math.floor(Math.random()*(4000-1500+1))+1500;
                 const y =startLane[Math.floor(Math.random()*startLane.length)];
-                const newHuman = new Human(position+500,y,this);
-                const overLapCheck = this.humans.some((human)=>{
-                    newHuman.isCollidedWith(human,65,65)
-                });
-                if (!overLapCheck){
+                const newHuman = new Human(position,y,this);
                     this.add(newHuman);
                     positionFound=true;
                 }
-            }
+            
         }
     }
     addSetting(){
@@ -81,6 +80,7 @@ class Game {
         this.humans.concat(this.trash).forEach(object =>{
             object.move();
         })
+        if (this.humans.some(human=>human.pos[0]<=150))this.gameOver=true;
         
     }
 
@@ -116,6 +116,9 @@ class Game {
     triggerThrow(){
         
     }
+    checkForLoss(){
+        this.humans.some(human=>human.pos[0]<150);
+    }
     update(){
         this.humans.forEach(human=>{
             human.update();
@@ -123,6 +126,9 @@ class Game {
         this.checkforDeadHumans();
         this.assignHumans();
         this.checkHits();
+        if (this.gameOver){
+
+        }
     }
     // resetProjectileThrown(){
     //     this.zombies.forEach((zombie)=>{
@@ -186,7 +192,7 @@ class Game {
     }
 
     remove(object){
-
+        console.log('removal in process');
         if (object instanceof Projectile){
             this.trash.splice(this.trash.indexOf(object),1);
         } else if (object instanceof Human){
@@ -198,6 +204,14 @@ class Game {
 
     getSetting(){
         return this.setting[0];
+    }
+    restartObjects(){
+        this.gameOver=false;
+        this.humans = [];
+        this.trash=[];
+        this.zombies=[];
+        this.addZombies();
+        this.addHumans();
     }
 }
 

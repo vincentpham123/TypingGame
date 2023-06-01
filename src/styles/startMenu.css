@@ -18,6 +18,30 @@
 #lastTitle{
     font-size:70px;
 }
+#tryAgain{
+    color: red;
+    font-size:70px;
+    left: 30%;
+    position: absolute;
+    z-index:2;
+    top:10%;
+}
+#yes{
+    color: red;
+    position:absolute;
+    z-index: 2;
+    font-size:30px;
+    left:40%;
+    top:22%;
+}
+#no{
+    color: red;
+    position:absolute;
+    z-index: 2;
+    font-size:30px;
+    left:55%;
+    top:22%;
+}
 
 #navBar{
     font-size:30px;
