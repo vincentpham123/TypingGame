@@ -66,13 +66,13 @@ class Game {
             console.log('spawntimechange');
             if(this.gameOver) clearInterval(timer);
             if(this.humanSpawnTime>=1000) this.humanSpawnTime-=500;
-        },5000)
+        },2000)
         let speeder = setInterval(()=>{
             if(this.gameOver) clearInterval(speeder);
             console.log('speed change');
             console.log(this.humanSpeed);
             if(this.humanSpeed<=15) this.humanSpeed+=.5;
-        },5000)
+        },3000)
         let adder = setInterval(()=>{
             if (this.gameOver) clearInterval(adder);
             let randomX = Math.floor(Math.random()*(300+1))+1400;
