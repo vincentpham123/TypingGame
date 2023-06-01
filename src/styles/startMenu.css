@@ -88,7 +88,7 @@
 }
 
 #sitelinks{
-    
+    margin-right: auto;
     position:absolute;
     gap: 5%;
     right: 5%;
