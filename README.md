@@ -3,7 +3,7 @@
 
 ## BackGround
 
-ahhh urRrRR Orrr!! is a classic twist on a typing game. Help the zombies defend from humans by using their word powered weapons??? Inspired by the gmae, Typing of the Dead, this game aims to test a player's typing skills. 
+ahhh urRrRR Orrr!! is a classic twist on a typing game. Help the zombies defend from humans by using their word powered weapons??? Inspired by the game, Typing of the Dead, this game aims to test a player's typing skills. 
 
 This game will play out on 4 rectangular grids. Each rectangle will serve as a path for a evil human to walk towards the zombies' home. 
 
