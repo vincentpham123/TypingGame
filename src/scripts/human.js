@@ -111,7 +111,6 @@ class Human extends MovingObject {
             }
             if(!this.word.length){
                 this.status='dead';
-                console.log(this);
             }
         }
         
