@@ -58,19 +58,14 @@ class Game {
     }
     
     addHuman(){
-        console.log('called');
         const startLane =[590,710,650];
         const minDistance =200;
         let timer = setInterval(()=>{
-            console.log(this.humanSpawnTime);
-            console.log('spawntimechange');
             if(this.gameOver) clearInterval(timer);
             if(this.humanSpawnTime>=100) this.humanSpawnTime-=500;
         },2000)
         let speeder = setInterval(()=>{
             if(this.gameOver) clearInterval(speeder);
-            console.log('speed change');
-            console.log(this.humanSpeed);
             if(this.humanSpeed<=15) this.humanSpeed+=.5;
         },3000)
         let adder = setInterval(()=>{
@@ -207,7 +202,6 @@ class Game {
     }
 
     remove(object){
-        console.log('removal in process');
         if (object instanceof Projectile){
             this.trash.splice(this.trash.indexOf(object),1);
         } else if (object instanceof Human){

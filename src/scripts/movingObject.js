@@ -35,7 +35,6 @@ class MovingObject{
           const detection1 = (this.pos[0]+width1>=human.pos[0]);
           const detection2 = (human.pos[0]+width2>=this.pos[0]);
           if (detection1 && detection2) {
-            console.log('collision detected')
             return true;
           }
         }

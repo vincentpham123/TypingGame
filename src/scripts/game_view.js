@@ -31,7 +31,6 @@ class GameView {
             // } else if(GameView.alphabet.includes(event.key.toUpperCase())){
             //     this.menuKeys.push(event.key.toLowerCase());
             // 
-            console.log(event.key);
             let letters = document.getElementsByClassName('startLetters');
             for(let i =this.typingindex;i<letters.length;i++){
                 let letter=letters[i].innerText;
@@ -83,7 +82,6 @@ class GameView {
                     };
                     break;
                 case(1):
-                    console.log(event.key===this.no[1]);
                     this.noIndex=0;
                     if(this.no.indexOf(event.key)===1) {
                     returnLetters[1].classList.add('typed');
@@ -316,10 +314,8 @@ class GameView {
         this.clearTyped('againLetters');
         this.clearTyped('returnLetters');
         this.clearTyped('startLetters');
-        console.log('restarted');
         this.lastFrameTime=0
         this.game.restartObjects();
-        console.log(this.game);
         let tryAgain = document.getElementById('tryAgain');
         let yes = document.getElementById('yes');
         let no = document.getElementById('no');
